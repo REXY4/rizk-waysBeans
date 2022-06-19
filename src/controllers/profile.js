@@ -87,40 +87,33 @@ exports.getProfiles = async(req,res)=>{
     }
 }
 
-exports.getProfile = async(req,res)=>{
+exports.getDetailProfile = async(req,res)=>{
     try {
         const {id} = req.params
 
         let data = await profile.findOne({
             where:{
-                idUser:id
+                idUser : id
             },
-            include:[
-                {
-                    model:user,
-                    as:"user",
-                    attributes:{
-                        exclude:["createdAt","updatedAt","password","name","email","status"],
-                    },
-                },
+            // include:[
+            //     {
+            //         model:user,
+            //         as:"user",
+            //         attributes:{
+            //             exclude:["createdAt","updatedAt","password","name","email","status"],
+            //         },
+            //     },
                 
-            ],
-            attributes:{
-                exclude:['createdAt','updatedAt']
-            }
+            // ],
+            // attributes:{
+            //     exclude:['createdAt','updatedAt']
+            // }
         })
-        data = JSON.parse(JSON.stringify(data));
-
-        data = {
-            ...data,
-            image: process.env.PATH_FILE + data.image,
-        };
+        // data = JSON.parse(JSON.stringify(data));
         res.send({
             status:"success",
             data:{
-                user:{
-                    data
-                }
+                user : data
             }
         })
     } catch (error) {

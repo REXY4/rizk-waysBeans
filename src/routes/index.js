@@ -6,7 +6,7 @@ const { route } = require('express/lib/application')
 const{auth} =require('../middlewares/auth')
 const { uploadFile } = require('../middlewares/ulpoadFile')
 const { addProduct, getProducts, getProduct, updateProduct, deleteProduct } = require('../controllers/product')
-const { addProfile, getProfile, deleteProfile, updateProfile, getProfiles } = require('../controllers/profile')
+const { addProfile, getDetailProfile, deleteProfile, updateProfile, getProfiles } = require('../controllers/profile')
 const { getCarts, deleteCart, getCart, addCart } = require('../controllers/cart')
 
 
@@ -26,9 +26,9 @@ router.patch('/product/:id',auth,uploadFile('image'), updateProduct)
 router.delete('/product/:id', deleteProduct)
 
 router.patch('/profile/:id', uploadFile('image'), updateProfile)
-router.delete('/profile/:id', deleteProfile)
+router.delete('/profile/:id',auth, deleteProfile)
 router.get('/profiles', getProfiles)
-router.get('/profile/:id', getProfile)
+router.get('/profile/:id', getDetailProfile)
 router.post('/profile', uploadFile('image'), addProfile)
 
 router.get('/carts', auth, getCarts)

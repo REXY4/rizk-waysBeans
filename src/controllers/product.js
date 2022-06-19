@@ -1,19 +1,25 @@
 const {product, user, category, productcaegory}= require(`../../models`)
 
 
-exports.addProduct= async(req,res)=>{
+exports.addProduct= async(req, res)=>{
     try {
-        const data = {
-            name: req.body.name,
-            stock: req.body.stock,
-            price: req.body.price,
-            desc: req.body.desc,
-            image: req.file.filename,
-            idUser: req.user.id,
-            };
-        
-            let newProduct = await product.create(data);
-        
+            const {
+                name,
+                stock,
+                price,
+                desc,
+                idUser,
+            } = req.body;
+            const path = process.env.PATH_FILE;
+            let newProduct = await product.create({
+                name,
+                stock,
+                price,
+                desc,
+                image :path + req.files.image[0].filename,
+                idUser,
+            });
+
             let productData = await product.findOne({
             where: {
                 id: newProduct.id,
@@ -30,21 +36,17 @@ exports.addProduct= async(req,res)=>{
             attributes: {
                 exclude: ["createdAt", "updatedAt"],
             },
-            });
-            productData = JSON.parse(JSON.stringify(productData));
-        
+            });   
+
             res.send({
-            status: "success...",
-            data: {
-                ...productData,
-                image: process.env.PATH_FILE + productData.image,
-            },
+            status: "success",
+            data: productData,
             });
         } catch (error) {
             console.log(error);
             res.status(500).send({
             status: "failed",
-            message: "Server Error",
+            message: error.message,
             });
         }
     };
@@ -69,9 +71,7 @@ exports.getProducts = async(req,res)=>{
         res.send({
             status:"success",
             data:{
-                user:{
-                    data
-                }
+                product: data // iko tadi eby pake user lah bang ganti
             }
         })
     } catch (error) {
@@ -86,7 +86,6 @@ exports.getProducts = async(req,res)=>{
 exports.getProduct = async(req,res)=>{
     try {
         const {id} = req.params
-
         let data = await product.findOne({
             where:{
                 id:id
@@ -105,13 +104,10 @@ exports.getProduct = async(req,res)=>{
                 exclude:['createdAt','updatedAt']
             }
         })
-        let FILE_PATH = 'http://localhost:5000/uploads/'
         res.send({
             status:"success",
             data:{
-                user:{
-                    data
-                }
+                product : data
             }
         })
     } catch (error) {
@@ -126,16 +122,24 @@ exports.getProduct = async(req,res)=>{
 exports.updateProduct = async(req, res) => {
     try {
         const { id } = req.params;
-
-
+        // const data = {
+        //     name: req?.body?.name,
+        //     desc: req?.body.desc,
+        //     price: req?.body?.price,
+        //     image: req?.file?.filename,
+        //     qty: req?.body?.qty,
+        //     idUser: req?.user?.id,
+        // };
+        const path = process.env.PATH_FILE;
+        const {name, desc, price, qty, stock} = req.body;
         const data = {
-            name: req?.body?.name,
-            desc: req?.body.desc,
-            price: req?.body?.price,
-            image: req?.file?.filename,
-            qty: req?.body?.qty,
-            idUser: req?.user?.id,
-        };
+            name,
+            stock,
+            price,
+            desc,
+            qty,
+            image :path + req.files.image[0].filename,
+        }
         await product.update(data, {
             where: {
             id,
@@ -145,16 +149,14 @@ exports.updateProduct = async(req, res) => {
         res.send({
         status: "success",
         data: {
-            id,
-            data,
-            image: req?.file?.filename,
-            },
+            product : data
+        }
         });
         } catch (error) {
             console.log(error)
             res.send({
                 status: 'failed',
-                message: 'Server Error'
+                message: error.message
             })
         }
     }

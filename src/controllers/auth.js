@@ -1,4 +1,4 @@
-const {user}= require ('../../models')
+const {user, profile}= require ('../../models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Joi = require('joi')
@@ -32,12 +32,16 @@ exports.register = async(req,res) =>{
             }else{
                 const salt = await bcrypt.genSalt(10)
                 const hashedPassword = await bcrypt.hash(password, salt)
-        
+                
                 const newUser = await user.create({
                     name:name,
                     email:email,
                     password:hashedPassword,
                     status:"customer"
+                })
+
+                const createProfile = await profile.create({
+                    name : newUser.name
                 })
                 res.status(200).send({
                     status:"success",

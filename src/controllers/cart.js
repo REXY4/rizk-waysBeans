@@ -108,7 +108,6 @@ exports.addCart = async(req,res)=>{
             idProduct:req.body.idProduct,
             idUser:req.user.id,
         };
-
         const createdData = await cart.create(data);
 
         let whis = await cart.findOne({
