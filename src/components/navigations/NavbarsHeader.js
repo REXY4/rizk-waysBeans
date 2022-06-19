@@ -17,6 +17,7 @@ import ChatIcon from "../../assets/images/chatIcon.svg";
 import LogoutIcon from "../../assets/images/logoutIcon.svg";
 import Polygon from "../../assets/images/polygon.svg";
 import ToastRegister from "../modals/Toas";
+import ProductAdd from '../../assets/images/addProduct.svg';
 import { UserContext } from "../../context/useContenxt";
 
 const NavbarHeader = () =>{
@@ -127,17 +128,23 @@ const NavbarHeader = () =>{
                 className="mb-3"
                 onMouseLeave={()=>setUlProfileHover(false)}
                 onMouseEnter={()=>setUlProfileHover(true)}
-                onClick={()=>navigate("/profile")}
+                onClick={()=>{
+                  if(state.user.status === "customer"){
+                    navigate("/profile")
+                  }else{
+                    navigate("/add/product");
+                  }
+                }}
                 style={{
                   cursor : "pointer",
                   opacity : ulProfileHover ? "0.6" : ""
                 }}
                 >
                   <Image 
-                  src={UserIcon}
+                  src={state.user.status === "customer" ? UserIcon : ProductAdd}
                   alt="user"
                   />
-                  <span className="listText">Profile</span>
+                  <span className="listText">{state.user.status === "customer" ?  "Profile" : "Add Product"}</span>
                 </li>
                 <hr style={{
                   height : "2px"
@@ -156,8 +163,8 @@ const NavbarHeader = () =>{
                   alt="user"
                  
                   />
-                  <span className="listText">Chat</span>
-                </li>
+                  <span className="listText">Complain</span>
+                </li> 
                 <hr style={{
                   height : "2px"
                 }} />
