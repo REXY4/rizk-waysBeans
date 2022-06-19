@@ -10,7 +10,8 @@ function App() {
     <>
     <NavbarHeader />
     <Container style={{
-      padding : "50px"
+      padding : "50px",
+      marginTop : "50px"
     }}>
       <MainRoutes/>
     </Container>

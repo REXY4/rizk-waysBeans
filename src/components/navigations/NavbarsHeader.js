@@ -31,7 +31,7 @@ const NavbarHeader = () =>{
 
   const navigate = useNavigate();
     return(
-        <Navbar className="bodyNav">
+        <Navbar className="bodyNav" fixed="top">
          <Container>
         <Navbar.Brand href="/">
             <img
