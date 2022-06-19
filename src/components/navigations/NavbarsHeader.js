@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useContext, useState} from "react";
 import { 
     Navbar,
     Container,
@@ -16,20 +16,32 @@ import UserIcon from "../../assets/images/userIcon.svg";
 import ChatIcon from "../../assets/images/chatIcon.svg";
 import LogoutIcon from "../../assets/images/logoutIcon.svg";
 import Polygon from "../../assets/images/polygon.svg";
+import ToastRegister from "../modals/Toas";
+import { UserContext } from "../../context/useContenxt";
 
 const NavbarHeader = () =>{
+  const [state, dispatch] = useContext(UserContext);
+
   const [showLogin,setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [keranjangHover, setKeranjangHover] = useState(false);
   const [profileHover, setProfileHover] = useState(false);
   const [showDropDown, setShowDropDown] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  const [messageAuths, setMessageAuths] = useState("");
+  const [openAlertRegister, setOpenAlertRegister] = useState(false);
   
   const [ulProfileHover, setUlProfileHover] = useState(false);
   const [ulChatHover, setUlChatHover] = useState(false);
   const [ulLogoutHover, setUlLogoutHover] = useState(false);
-
+  
   const navigate = useNavigate();
+  const handleLogout = async () =>{
+   await dispatch({
+      type : "LOGOUT",
+    });
+
+    await navigate("/")
+  }
     return(
         <Navbar className="bodyNav" fixed="top">
          <Container>
@@ -44,7 +56,7 @@ const NavbarHeader = () =>{
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-        {isLogin ? 
+        {state.isLogin ? 
         (
           <>
           <div>
@@ -152,6 +164,7 @@ const NavbarHeader = () =>{
                 <li className="pb-3 pt-3"
                    onMouseLeave={()=>setUlLogoutHover(false)}
                    onMouseEnter={()=>setUlLogoutHover(true)}
+                   onClick={()=>handleLogout()}
                    style={{
                     cursor : "pointer",
                     opacity : ulLogoutHover ? "0.6" : ""
@@ -185,8 +198,9 @@ const NavbarHeader = () =>{
         }  
         </Navbar.Collapse>
       </Container>
+      {openAlertRegister ? <ToastRegister message={messageAuths} closeToast={setOpenAlertRegister}/> : <></>}
       <ModalLogin setShowLogin={setShowLogin} showLogin={showLogin} setShowRegister={setShowRegister}/>
-      <ModalRegister setShowRegister={setShowRegister} showRegister={showRegister} setShowLogin={setShowLogin}/>
+      <ModalRegister openAlert={setOpenAlertRegister} setMessageAuths={setMessageAuths} setShowRegister={setShowRegister}  showRegister={showRegister} setShowLogin={setShowLogin}/>
     </Navbar>
     )
 }
