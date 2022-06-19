@@ -1,14 +1,17 @@
-import React,{useContext, useRef, useState} from "react";
+import React,{useContext, useRef, useState, useEffect} from "react";
 import {Form, FloatingLabel, Image, Button}from 'react-bootstrap';
 import Attachment from "../assets/images/atthacment.png"
 import { Api } from "../config/api";
 import { UserContext } from "../context/useContenxt";
+import {useParams} from "react-router-dom";
 
-const FormAddData = ({setMessage,setAlertMessage}) => {
+const FormEdditData = ({setMessage,setAlertMessage}) => {
   const inputRef = useRef(null);
   const [state, dispatch] = useContext(UserContext)
   const [click, setClick] = useState(false);
- 
+  const [product, setProduct] = useState([]);
+  const [messageAlert, setMessageAlert] = useState(false);
+let params = useParams();
   
   const [form, setForm] = useState({
     name : null,
@@ -18,7 +21,7 @@ const FormAddData = ({setMessage,setAlertMessage}) => {
     idUser : null,
     image : null,
   })
-  const {name, stock, price, desc,idUser, image } = form;
+  const {name, stock, price, desc, image } = form;
   const handleUpload = () => {
     inputRef.current?.click();
   };
@@ -30,7 +33,7 @@ const FormAddData = ({setMessage,setAlertMessage}) => {
       [e.target.name]: e.target.type === "file" ? e.target.files : e.target.value
     })
   }
-  console.log(form)
+  
   const addProduct = async (e)=>{
     try{
       const config = {
@@ -44,8 +47,9 @@ const FormAddData = ({setMessage,setAlertMessage}) => {
       formData.append("stock", stock );
       formData.append("price", price );
       formData.append("desc", desc);
-      formData.append("idUser", state.user.id );
-      const response = await Api.post("/product", formData, config);
+    //   formData.append("idUser", state.user.id );
+      const response = await Api.patch("/product/"+params.id, formData, config);
+      console.log(response.data)
       if(response.data.status === 'success'){
         await setMessage("Success Add Product");
         await setAlertMessage(true);
@@ -55,11 +59,26 @@ const FormAddData = ({setMessage,setAlertMessage}) => {
     }
   }
   // console.log("ini image",image[0].name)
+  
+
+  const loadDataProduct = async ()=>{
+      try{
+          const response = await Api.get(`/product/${params.id}`);
+          setProduct(response.data.data.product);
+      }catch(error){
+          console.log(error);
+      }
+  }
+
+  useEffect(()=>{
+      loadDataProduct()
+  },[])
+
   return (
     <Form style={{
       width : "472px"
     }}>
-      <Form.Group className="mb-4" controlId="formBasicEmail">
+       <Form.Group className="mb-4" controlId="formBasicEmail">
         <Form.Control 
         type="text"
          placeholder="Name" 
@@ -132,11 +151,11 @@ const FormAddData = ({setMessage,setAlertMessage}) => {
            style={{
             width : '260px'
           }}>
-              Add Product
+              Edit Product
           </Button>
           </div>
     </Form>
   );
 }
 
-export default FormAddData;
+export default FormEdditData;

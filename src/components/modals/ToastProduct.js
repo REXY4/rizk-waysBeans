@@ -1,19 +1,17 @@
-import React, { useEffect} from 'react';
-
+import React, { } from 'react';
+import {useNavigate} from "react-router-dom";
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 
-function ToastRegister({message, closeToast}) {
-
-  useEffect(()=>{
-    setTimeout(()=>{
-      closeToast(false)
-    }, 3000);
-  },[]);
+function ToastProduct({message, closeToast}) {
+let navigate =  useNavigate();
   return ( 
     <>  
            <ToastContainer
-        onClick={()=>closeToast(false)}
+        onClick={()=>{
+            closeToast(false)
+            window.location.replace("/")
+        }}
         className="p-3" 
         position={"middle-center"}
         style={{
@@ -35,4 +33,4 @@ function ToastRegister({message, closeToast}) {
   );
 }
 
-export default ToastRegister;
+export default ToastProduct;

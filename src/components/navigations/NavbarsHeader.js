@@ -1,4 +1,4 @@
-import React,{useContext, useState} from "react";
+import React,{useContext, useState, useEffect} from "react";
 import { 
     Navbar,
     Container,
@@ -19,6 +19,7 @@ import Polygon from "../../assets/images/polygon.svg";
 import ToastRegister from "../modals/Toas";
 import ProductAdd from '../../assets/images/addProduct.svg';
 import { UserContext } from "../../context/useContenxt";
+import { Api } from "../../config/api";
 
 const NavbarHeader = () =>{
   const [state, dispatch] = useContext(UserContext);
@@ -34,6 +35,7 @@ const NavbarHeader = () =>{
   const [ulProfileHover, setUlProfileHover] = useState(false);
   const [ulChatHover, setUlChatHover] = useState(false);
   const [ulLogoutHover, setUlLogoutHover] = useState(false);
+  const [countCart, setCountCart] = useState([]);
   
   const navigate = useNavigate();
   const handleLogout = async () =>{
@@ -43,6 +45,20 @@ const NavbarHeader = () =>{
 
     await navigate("/")
   }
+
+  const loadCart = async () =>{
+    try{
+      const response = await Api.get("/carts");
+      setCountCart(response.data.data.user.data);
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    loadCart()
+  },[]);
+  
     return(
         <Navbar className="bodyNav" fixed="top">
          <Container>
@@ -60,9 +76,10 @@ const NavbarHeader = () =>{
         {state.isLogin ? 
         (
           <>
+          {state.user.status === "customer" ? 
           <div>
             <span className="badgeKeranjang">
-              2
+              {countCart.length}
             </span>
             <Image
             onMouseLeave={()=>setKeranjangHover(false)} 
@@ -77,6 +94,7 @@ const NavbarHeader = () =>{
             }}
             alt="keranjang"/>
            </div>
+           : <></>}
            <div>
            <Image
            onMouseLeave={()=>setProfileHover(false)}

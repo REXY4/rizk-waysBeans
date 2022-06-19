@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import {Card,} from "react-bootstrap";
 import "../../styles/card.css";
+import {idr} from "../../utils/convertToRupiah";
 
-const CardProducts = ({image, title}) =>{
+const CardProducts = ({image, title, price, stock}) =>{
     const [mouseOn, setMouseOn ] = useState(false);
     return(
         <Card
@@ -25,8 +26,8 @@ const CardProducts = ({image, title}) =>{
                     {title}
                 </Card.Title>
                 <Card.Text className="deskripsiCard">
-                    Rp.299.900 <br/>
-                    Stock : 99
+                    {idr(price)}<br/>
+                    Stock : {stock}
                 </Card.Text>
             </Card.Body>
         </Card>

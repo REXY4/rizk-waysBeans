@@ -1,11 +1,14 @@
+import React,{useState, useEffect, useContext} from "react";
 import {Row, Col, Image} from "react-bootstrap";
 import "../styles/profile.css";
 import Profile from "../assets/images/profile.png";
 import CardTransactions from "../components/cards/CardTransactions";
 import Product from "../assets/images/products.png";
+import { Api } from "../config/api";
+import { UserContext } from "../context/useContenxt";
 
 const ProfilePages = () =>{
-
+    const [state,] = useContext(UserContext);
     const dataProfileTransactions = [
         {
             id :1,
@@ -28,6 +31,18 @@ const ProfilePages = () =>{
             subTotal : 601.800,
         }
     ];
+    const loadDataUser = async () =>{
+        try{
+            const response = await Api.get("/profile/"+state.user.id);
+            console.log(response.data)
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    useEffect(()=>{
+        loadDataUser()
+    },[]);
 
     return(
         <Row className="mt-5">
@@ -49,11 +64,11 @@ const ProfilePages = () =>{
                 <Col>
                     <div>
                         <h3 className="labelProfile">Full Name</h3>
-                        <p className="valueProfile">Rizki Ganteng</p>
+                        <p className="valueProfile">{state.user.name}</p>
                     </div>
                     <div>
                         <h3 className="labelProfile">Email</h3>
-                        <p className="valueProfile">muhammadrzki@gmail.com</p>
+                        <p className="valueProfile">{state.user.email}</p>
                     </div>
                 </Col>
                 </Row>

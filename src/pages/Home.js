@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React,{ useState, useEffect } from "react";
 import {
     Row,
     Col,
@@ -8,33 +8,48 @@ import { useNavigate } from "react-router-dom";
 import Jumbroton from "../assets/images/Jumbotron.png";
 import CardProducts from "../components/cards/CardProducts";
 import Products from "../assets/images/products.png"
+import { Api } from "../config/api";
 
 
 
 const Home = () =>{
     let navigate = useNavigate();
-    const data = [
-        {
-            id : 1,
-            title : "RWANDA Beans",
-            image  : Products,
-        },
-        {
-            id : 2,
-            title : "RWANDA Beans",
-            image  : Products,
-        },
-        {
-            id : 3,
-            title : "RWANDA Beans",
-            image  : Products,
-        },
-        {
-            id : 4,
-            title : "RWANDA Beans",
-            image  : Products,
-        },
-    ]
+    const [product, setProduct] = useState([]);
+    const  loadData = async ()=>{
+        try{
+            const response = await Api.get("/products");
+            setProduct(response.data.data.product)
+        }catch(error){
+            console.log(error);
+        }
+    }
+    // const data = [
+    //     {
+    //         id : 1,
+    //         title : "RWANDA Beans",
+    //         image  : Products,
+    //     },
+    //     {
+    //         id : 2,
+    //         title : "RWANDA Beans",
+    //         image  : Products,
+    //     },
+    //     {
+    //         id : 3,
+    //         title : "RWANDA Beans",
+    //         image  : Products,
+    //     },
+    //     {
+    //         id : 4,
+    //         title : "RWANDA Beans",
+    //         image  : Products,
+    //     },
+    // ]
+    
+
+    useEffect(()=>{
+        loadData()
+    },[]);
     return(
         <Row>
             <Row className="mb-5">
@@ -44,15 +59,32 @@ const Home = () =>{
                 </Col>
             </Row>
             <Row >
-                {data.map((item, index)=>{
+                <div style={{
+                    height : "440px",
+                    overflow : "hidden"
+                }}>
+                <Col style={{
+                    display : "flex",
+                    width : "100%",
+                    height : "500px",
+                    overflow : "auto"
+                }}>
+                
+                {product.map((item, index)=>{
                     return(
-                        <Col className="mb-5" key={index} onClick={()=>navigate(`/detail`)}>
+                        <div className="mb-5" key={index}
+                        style={{marginRight : "30px"}}
+                        onClick={()=>navigate(`/detail/product/${item.id}`)}>
                                 <CardProducts 
                                 image={item.image}
-                                title={item.title}/>
-                        </Col>
+                                title={item.name}
+                                stock={item.stock}
+                                price={item.price}/>
+                        </div>
                     )
                 })}
+                </Col>
+                </div>
             </Row>
         </Row>
     )
