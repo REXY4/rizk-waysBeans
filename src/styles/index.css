@@ -1,0 +1,68 @@
+@font-face {
+    font-family: 'Product Sans';
+    src: url(../assets/fonts//Product\ Sans\ Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Avenir';
+    src: url(../assets//fonts//avenir_ff/AvenirLTStd-Book.otf);
+}
+
+@font-face {
+    font-family: 'AvenirBold';
+    src: url(../assets//fonts//avenir_ff/AvenirLTStd-Black.otf);
+}
+
+
+.App{
+    font-family: "Product Sans";
+}
+
+#inputAddData {
+    background: rgba(97, 61, 43, 0.25);
+border: 2px solid #613D2B;
+border-radius: 5px;
+width: 100%;
+height: 50px;
+
+font-family: 'Avenir';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 25px;
+/* identical to box height */
+
+
+color: rgba(97, 61, 43, 0.5);
+}
+
+
+#buttonLoginModal{
+    width : 100%;
+height: 40px;
+background: #613D2B;
+border-radius: 5px;
+}
+
+.footerLogin{
+    font-family: 'Avenir';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 25px;
+color: #000000;
+}
+
+.customModal{
+    width : "100px"
+}
+
+.titleModal{
+    font-family: 'AvenirBold';
+font-style: normal;
+font-weight: 900;
+font-size: 36px;
+line-height: 49px;
+
+color: #613D2B;
+}

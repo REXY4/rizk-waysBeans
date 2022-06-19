@@ -1,0 +1,90 @@
+.labelProfile {
+    font-family: 'Avenir';
+font-style: normal;
+font-weight: 800;
+font-size: 18px;
+line-height: 25px;
+color: #613D2B;
+}
+
+.valueProfile {
+    font-family: 'Avenir';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 25px;
+/* identical to box height */
+
+
+color: #000000;
+}
+
+.cardTransactionProifile{
+    width: 524px;
+    /* height: 145px; */
+    background: #F6E6DA;
+}
+
+.titleCardProfile{
+font-family: 'Avenir';
+font-style: normal;
+font-weight: 900;
+font-size: 14px;
+line-height: 19px;
+display: flex;
+align-items: center;
+color: #613D2B;
+}
+
+.titleTime {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 9px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+    color: #613D2B;
+}
+
+.priceProfileCard{
+    font-family: 'Avenir';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+
+color: #974A4A;
+}
+
+.subTotalProfileCard{
+    font-family: 'AvenirBold';
+font-style: normal;
+font-weight: 900;
+font-size: 10px;
+line-height: 14px;
+/* identical to box height */
+
+
+color: #974A4A;
+}
+
+#buttonApprove{
+    width: 112px;
+    height : 19px;
+    background: rgb(255,153,0, 0.3);
+border-radius: 2px;
+}
+
+
+
+.textButtonProfileCard {
+    font-family: 'Avenir';
+font-style: normal;
+font-weight: 500;
+font-size: 10px;
+line-height: 14px;
+/* color: #FF9900;  */
+position: relative;
+bottom : 13px;
+
+}

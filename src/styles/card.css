@@ -1,0 +1,17 @@
+.titleCard {
+    font-family: 'Avenir';
+font-style: normal;
+font-weight: 900;
+font-size: 18px;
+line-height: 25px;
+color: #613D2B;
+}
+
+.deskripsiCard {
+    font-family: 'Avenir';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 25px;
+color: #974A4A;
+}

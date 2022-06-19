@@ -1,0 +1,84 @@
+.titleHeaderCart{
+    font-family: 'Avenir';
+font-style: normal;
+font-weight: 900;
+font-size: 24px;
+line-height: 33px;
+color: #613D2B;
+}
+
+.paragrafHeaderCart{
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    /* identical to box height */
+    
+    
+    color: #613D2B;
+}
+
+.titleCart{
+    font-family: 'Avenir';
+font-style: normal;
+font-weight: 900;
+font-size: 14px;
+line-height: 19px;
+display: flex;
+align-items: center;
+
+color: #613D2B;
+}
+
+#buttonIncrement{
+    font-weight: 300;
+font-size: 46px;
+line-height: 63px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+
+color: #613D2B;
+}
+
+.valueCart{
+    width: 50px;
+height: 20px;
+padding : 5px 10px 5px 10px;
+background: #F6E6DA;
+border-radius: 5px;
+font-family: 'AvenirBold';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 19px;
+text-align: center;
+color: #613D2B;
+}
+
+.cartPrice{
+    font-family: 'Avenir';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 19px;
+color: #974A4A;
+}
+
+.cartPriceTwo{
+    font-family: 'AvenirBold';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #974A4A;
+}
+
+#buttonCartPay{
+    width: 260px;
+height: 40px;
+background: #613D2B;
+border-radius: 5px;
+}

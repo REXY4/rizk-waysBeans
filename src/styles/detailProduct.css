@@ -1,0 +1,56 @@
+.title{
+    font-family: 'AvenirBold';
+font-style: normal;
+font-weight: 900;
+font-size: 48px;
+line-height: 66px;
+/* identical to box height */
+color: #613D2B;
+}
+
+.stock{
+    font-family: 'Avenir';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 25px;
+/* identical to box height */
+
+
+color: #974A4A;
+}
+
+.deskripsi{
+    font-family: 'Avenir';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 25px;
+text-align: justify;
+
+color: #000000;
+}
+
+.price{
+    font-family: 'AvenirBold';
+font-style: normal;
+font-weight: 900;
+font-size: 24px;
+line-height: 33px;
+/* identical to box height */
+
+text-align: end;
+color: #974A4A;
+}
+
+#buttonAddChart{
+    width: 544px;
+background: #613D2B;
+border-radius: 5px;
+font-family: 'Product Sans';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+letter-spacing: 0.3px;
+color: #FFFFFF;
+}
