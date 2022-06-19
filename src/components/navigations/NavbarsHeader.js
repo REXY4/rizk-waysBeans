@@ -2,16 +2,34 @@ import React,{useState} from "react";
 import { 
     Navbar,
     Container,
-    Button
+    Button,
+    Image
 } from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 import "../../styles/navigation.css"
 import logo from "../../assets/Logo.svg";
 import ModalLogin from "../modals/ModalLogin";
 import ModalRegister from "../modals/ModalRegister";
+import Keranjang from "../../assets/images/keranjang.svg"
+import ProfilePicture from "../../assets/images/profilePicture.png";
+import UserIcon from "../../assets/images/userIcon.svg";
+import ChatIcon from "../../assets/images/chatIcon.svg";
+import LogoutIcon from "../../assets/images/logoutIcon.svg";
+import Polygon from "../../assets/images/polygon.svg";
 
 const NavbarHeader = () =>{
   const [showLogin,setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [keranjangHover, setKeranjangHover] = useState(false);
+  const [profileHover, setProfileHover] = useState(false);
+  const [showDropDown, setShowDropDown] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  
+  const [ulProfileHover, setUlProfileHover] = useState(false);
+  const [ulChatHover, setUlChatHover] = useState(false);
+  const [ulLogoutHover, setUlLogoutHover] = useState(false);
+
+  const navigate = useNavigate();
     return(
         <Navbar className="bodyNav">
          <Container>
@@ -26,6 +44,132 @@ const NavbarHeader = () =>{
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
+        {isLogin ? 
+        (
+          <>
+          <div>
+            <span className="badgeKeranjang">
+              2
+            </span>
+            <Image
+            onMouseLeave={()=>setKeranjangHover(false)} 
+            onMouseEnter={()=>setKeranjangHover(true)}
+            onClick={()=>navigate("/cart")}
+             width="35px"
+             height="35px"
+            src={Keranjang}
+            style={{
+              cursor : "pointer",
+              opacity : keranjangHover ? '0.6' : ""
+            }}
+            alt="keranjang"/>
+           </div>
+           <div>
+           <Image
+           onMouseLeave={()=>setProfileHover(false)}
+           onMouseEnter={()=>setProfileHover(true)} 
+           onClick={()=>{
+            if(showDropDown){
+              setShowDropDown(false)
+            }else{
+              setShowDropDown(true)
+            }
+          }}
+           style={{
+            width : "60px",
+            height : "60px",
+            borderRadius : "50%",
+            marginLeft : "20px",
+            cursor : "pointer",
+            opacity : profileHover ? "0.6" : ""
+           }}
+           src={ProfilePicture}/>
+           </div>
+           <div
+           onMouseLeave={()=>setShowDropDown(false)} 
+           style={{
+            display : showDropDown ? "" : "none",
+            position : "absolute",
+            background : "#FFFFFF",
+            position : "absolute",
+            top : "80px",
+            width : "293px",
+            padding : "20px",
+            zIndex : 2,
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25), 4px 4px 20px rgba(0, 0, 0, 0.25)",
+            borderRadius: "10px",
+           }}>
+            <div style={{
+              position : "absolute",
+              bottom : "260px",
+              marginLeft : "210px"
+            }}>
+              <Image 
+              src={Polygon}
+              />
+            </div>
+              <ul style={{
+                listStyleType: "none"
+              }}>
+                <li 
+                className="mb-3"
+                onMouseLeave={()=>setUlProfileHover(false)}
+                onMouseEnter={()=>setUlProfileHover(true)}
+                onClick={()=>navigate("/profile")}
+                style={{
+                  cursor : "pointer",
+                  opacity : ulProfileHover ? "0.6" : ""
+                }}
+                >
+                  <Image 
+                  src={UserIcon}
+                  alt="user"
+                  />
+                  <span className="listText">Profile</span>
+                </li>
+                <hr style={{
+                  height : "2px"
+                }} />
+                <li className="mb-3"
+                 onMouseLeave={()=>setUlChatHover(false)}
+                 onMouseEnter={()=>setUlChatHover(true)}
+                 style={{
+                  cursor : "pointer",
+                  opacity : ulChatHover ? "0.6" : ""
+                }}>
+                  <Image 
+                  
+                  //  onClick={()=>navigate("/profile")}
+                  src={ChatIcon}
+                  alt="user"
+                 
+                  />
+                  <span className="listText">Chat</span>
+                </li>
+                <hr style={{
+                  height : "2px"
+                }} />
+                <li className="pb-3 pt-3"
+                   onMouseLeave={()=>setUlLogoutHover(false)}
+                   onMouseEnter={()=>setUlLogoutHover(true)}
+                   style={{
+                    cursor : "pointer",
+                    opacity : ulLogoutHover ? "0.6" : ""
+                  }}
+                   >
+                  <Image 
+                  src={LogoutIcon}
+                  alt="user"
+                  />
+                  <span className="listText">Logout</span>
+                </li>
+              </ul>
+           </div>
+          </>
+        )
+        :
+        (
+          <>
           <Button 
           variant="outline-secondary" 
           id="button-login"
@@ -36,6 +180,9 @@ const NavbarHeader = () =>{
            id="button-register"
            onClick={()=>setShowRegister(true)}
            >Register</Button>{' '}
+           </>
+        )
+        }  
         </Navbar.Collapse>
       </Container>
       <ModalLogin setShowLogin={setShowLogin} showLogin={showLogin} setShowRegister={setShowRegister}/>
